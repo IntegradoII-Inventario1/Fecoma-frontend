@@ -1,0 +1,56 @@
+<div class="bg-gray-900 rounded-md p-4">
+  <section>
+    <h1 class="text-gray-400 text-2xl pb-6">Agregar nuevo Representante</h1>
+    <form (ngSubmit)="create()">
+      <div class="flex flex-col">
+        <label for="nombres">Nombre</label>
+        <input
+          [(ngModel)]="representante.nombres"
+          name="nombres"
+          class="bg-transparent outline-none p-1 border-b-2"
+          type="text"
+          placeholder="ingresar la marca"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="apellidos">Apellidos</label>
+        <input
+          [(ngModel)]="representante.apellidos"
+          name="apellidos"
+          class="bg-transparent outline-none p-1 border-b-2"
+          type="text"
+          placeholder="ingresar el correo"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="telefono">Telefono</label>
+        <input
+          name="telefono"
+          [(ngModel)]="representante.telefono"
+          class="bg-transparent outline-none p-1 border-b-2"
+          type="number"
+          placeholder="ingresar el telefono"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label for="correo">Correo</label>
+        <input
+          name="correo"
+          [(ngModel)]="representante.correo"
+          class="bg-transparent outline-none p-1 border-b-2"
+          type="text"
+          placeholder="ingresar la direccion"
+        />
+      </div>
+      <div class="w-full flex justify-center">
+        <button
+          (click)="create()"
+          role="button"
+          class="bg-green-500 p-2 text-gray-200 text-center mt-6 rounded-lg font-bold text-md active:bg-green-400 active:scale-95"
+        >
+          Agregar
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

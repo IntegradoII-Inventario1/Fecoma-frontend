@@ -1,0 +1,133 @@
+<app-modal-compras></app-modal-compras>
+<section class="z-0">
+  <button (click)="abrirModal()"
+    class="bg-green-500 text-gray-200 text-center p-2 mb-10 rounded-lg font-bold text-xl active:bg-green-400 active:scale-95"
+  >
+    Agregar nueva ingreso
+  </button>
+  
+
+  <div
+    class="hidden lg:block overflow-auto w-full h-[480px] rounded-lg shadow mb-2"
+  >
+    <table class="w-full shadow-inner shadow-gray-400">
+      <thead class="bg-gray-900 text-gray-200 border-b-2 border-gray-300">
+        <tr>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">Cod</th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Descripcion
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Caracteristica
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Cantidad
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Costo
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Proveedor
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Categoria
+          </th>
+          <th class="p-3 text-sm font-semibold tracking-wide text-left">
+            Opciones
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-600">
+        <tr *ngFor="let item of representantes" class="bg-gray-700">
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            {{ item.id }}
+          </td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            {{ item.nombres }}
+          </td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            {{ item.apellidos }}
+          </td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            {{ item.correo }}
+          </td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            {{ item.telefono }}
+          </td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">Bosh</td>
+          <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+            Maquinaria
+          </td>
+          <td class="p-3 text-sm flex gap-x-2 text-gray-300 whitespace-nowrap">
+            <button
+              class="p-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg"
+            >
+              <fa-icon [icon]="faPenToSquare"></fa-icon>
+            </button>
+            <button
+              class="p-2 active:scale-95 bg-red-400 dark:bg-opacity-70 rounded-lg"
+            >
+              <fa-icon [icon]="faTrash"></fa-icon>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lg:hidden text-gray-400 font-bold flex gap-3 p-2 bg-gray-900 rounded-md">
+    <div class="flex-1">
+      <div>
+        <p>Cod: <span class="text-gray-200 font-normal">12</span></p>
+      </div>
+      <div>
+        <p>Descripcion: <span class="text-gray-200 font-normal">Martillo</span></p>
+      </div>
+      <div>
+        <p>Caracteristicas</p>
+        <p class="text-gray-200 font-normal">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde,
+          adipisci!
+        </p>
+      </div>
+      
+    </div>
+    <div class="flex-1 ">
+      <div>
+        <p>Proveedor</p>
+        <p class="text-gray-200 font-normal">Tottus</p>
+      </div>
+      <div>
+        <p>Categoria</p>
+        <p class="text-gray-200 font-normal">Herramientas</p>
+      </div>
+      <div class="flex gap-4">
+        <div>
+          <p>Cantidad</p>
+          <p class="text-gray-200 font-normal">2 uni</p>
+        </div>
+        <div>
+          <p>Costo</p>
+          <p class="text-gray-200 font-normal">$ 5.00</p>
+        </div>
+      </div>
+      <div class="text-right text-gray-100 mt-2">
+        <button
+                class="p-2 mx-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg"
+              >
+                <fa-icon [icon]="faPenToSquare"></fa-icon>
+              </button>
+              <button
+                class="p-2 active:scale-95 bg-red-400 dark:bg-opacity-70 rounded-lg"
+              >
+                <fa-icon [icon]="faTrash"></fa-icon>
+              </button>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <app-paginator *ngIf="paginador" [paginador]="paginador"></app-paginator>
+</section>
+

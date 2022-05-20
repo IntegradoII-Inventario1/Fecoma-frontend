@@ -1,0 +1,10 @@
+<div *ngIf="paginas?.length>0" class="flex rounded-md p-1 justify-end gap-1 bg-gray-900 text-sm font-semibold tracking-wide">
+  <div *ngFor="let num of paginas">
+    <button [routerLink]="['/ingresos/page/',num-1]" [routerLinkActive]="'bg-green-500 text-gray-200'" class="p-1 w-6 font-semibold hover:bg-green-500 bg-gray-400 bg-opacity-70 rounded-lg">
+      <a>{{num}}</a>
+    </button>
+  </div>
+  <button [routerLink]="['/ingresos/page/',paginadorprov.number+1]"  class="p-1 w-6 font-semibold hover:bg-green-500 bg-gray-400 bg-opacity-70 rounded-lg">
+    <a>&raquo;</a>
+  </button>
+</div>

@@ -1,0 +1,231 @@
+
+<button (click)="abrirWindowProveedor()"
+    class="bg-green-500 text-gray-200 text-center p-2 mb-10 rounded-lg font-bold text-xl active:bg-green-400 active:scale-95"
+  >
+    Agregar nuevo proveedor
+  </button>
+
+
+<!--Inicio-->
+<div
+  *ngIf="proveedorService.window"
+  class="bg-gray-400 z-20 bg-opacity-50 top-0 left-0 w-full h-screen fixed"
+>
+  <div
+    class="modal flex justify-between items-center overflow-x-auto"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg text-gray-200 bg-gray-900 p-4 rounded-md">
+      
+      <div class="modal-content p-2 bg-gray-900">
+        <div *ngIf="proveedorService.window" class="flex gap-4 mb-6">
+          <div class="bg-gray-900 rounded-md p-4">
+            <section>
+              <div>
+                <div class="text-2xl">Agregar nuevo Proveedor</div>
+              </div>
+              <form (ngSubmit)="create()">
+                <div class="flex flex-col">
+                  <label for="nombre">Nombre</label>
+                  <input
+                    name="nombre"
+                    [(ngModel)]="proveedor.nombre"
+                    class="bg-transparent outline-none p-1 border-b-2"
+                    type="text"
+                    placeholder="ingresar la marca"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label for="ruc">Ruc</label>
+                  <input
+                    name="ruc"
+                    [(ngModel)]="proveedor.ruc"
+                    class="bg-transparent outline-none p-1 border-b-2"
+                    type="text"
+                    placeholder="ingresar el correo"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label for="direccion">Direccion</label>
+                  <input
+                    [(ngModel)]="proveedor.direccion"
+                    name="direccion"
+                    class="bg-transparent outline-none p-1 border-b-2"
+                    type="text"
+                    placeholder="ingresar la direccion"
+                  />
+                </div>
+                <div class="flex flex-col">
+                  <label for="representante">Representante</label>
+                  <section class="flex w-full justify-between gap-2">
+                    <div>
+                      <select
+                        name="representante"
+                        class="bg-transparent outline-none p-1 border-b-2"
+                        type="text"
+                        placeholder="ingresar la direccion"
+                        [(ngModel)]="proveedor.representante"
+                      >
+                      <option class="bg-transparent text-gray-800" *ngFor="let representante of representantes" [ngValue]="representante">{{representante.nombres}}</option>
+                    </select>
+                    </div>
+                    <button
+                      *ngIf="!modalRepresentantes.window"
+                      (click)="abrirWindow()"
+                      class="bg-green-500 w-10 h-10 text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-green-400 active:scale-95"
+                    >
+                      +
+                    </button>
+                    <button *ngIf="modalRepresentantes.window"
+                      (click)="cerrarWindow()"
+                      class="bg-red-500 w-10 h-10 text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-red-400 active:scale-95"
+                    >
+                      -
+                    </button>
+                  </section>
+                </div>
+          
+                <div class="w-full flex gap-6 justify-between">
+
+                    <button
+                  (click)="create()"
+                    class="bg-green-500 p-2 text-gray-200 text-center mt-6 rounded-lg font-bold text-md active:bg-green-400 active:scale-95"
+                  >
+                    Agregar
+                  </button>
+                    <button (click)="cerrarWindowProveedor()" class="bg-red-500 p-2 text-gray-200 text-center mt-6 rounded-lg font-bold text-md active:bg-red-400 active:scale-95">Cancelar</button>
+                 
+                </div>
+              </form>
+            </section>
+          </div>
+          <div *ngIf="modalRepresentantes.window">
+            <app-representantes-modal></app-representantes-modal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--TABLE-->
+<div
+class="hidden lg:block overflow-auto w-full h-[335px] rounded-lg shadow mb-2"
+>
+<table class="w-full shadow-inner shadow-gray-400">
+  <thead class="bg-gray-900 text-gray-200 border-b-2 border-gray-300">
+    <tr>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Proveedor
+      </th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Ruc
+      </th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Direccion
+      </th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Representante
+      </th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Contacto
+      </th>
+      <th class="p-3 text-sm font-semibold tracking-wide text-left">
+        Opciones
+      </th>
+    </tr>
+  </thead>
+  <tbody class="divide-y divide-gray-600">
+    <tr *ngFor="let item of proveedores" class="bg-gray-700">
+      <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+        {{ item.nombre }}
+      </td>
+      <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+        {{ item.ruc }}
+      </td>
+      <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+        {{ item.direccion }}
+      </td>
+      <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+        {{ item.representante.nombres }} {{ item.representante.apellidos }}
+      </td>
+      <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+        {{ item.representante.telefono}}
+      </td>
+      <td class="p-3 text-sm flex gap-x-2 text-gray-300 whitespace-nowrap">
+        <button
+          class="p-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg"
+        >
+          <fa-icon [icon]="faPenToSquare"></fa-icon>
+        </button>
+        <button
+          class="p-2 active:scale-95 bg-red-400 dark:bg-opacity-70 rounded-lg"
+        >
+          <fa-icon [icon]="faTrash"></fa-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="lg:hidden text-gray-400 font-bold flex gap-3 p-2 bg-gray-900 rounded-md">
+<div class="flex-1">
+  <div>
+    <p>Cod: <span class="text-gray-200 font-normal">12</span></p>
+  </div>
+  <div>
+    <p>Descripcion: <span class="text-gray-200 font-normal">Martillo</span></p>
+  </div>
+  <div>
+    <p>Caracteristicas</p>
+    <p class="text-gray-200 font-normal">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde,
+      adipisci!
+    </p>
+  </div>
+  
+</div>
+<div class="flex-1 ">
+  <div>
+    <p>Proveedor</p>
+    <p class="text-gray-200 font-normal">Tottus</p>
+  </div>
+  <div>
+    <p>Categoria</p>
+    <p class="text-gray-200 font-normal">Herramientas</p>
+  </div>
+  <div class="flex gap-4">
+    <div>
+      <p>Cantidad</p>
+      <p class="text-gray-200 font-normal">2 uni</p>
+    </div>
+    <div>
+      <p>Costo</p>
+      <p class="text-gray-200 font-normal">$ 5.00</p>
+    </div>
+  </div>
+  <div class="text-right text-gray-100 mt-2">
+    <button
+            class="p-2 mx-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg"
+          >
+            <fa-icon [icon]="faPenToSquare"></fa-icon>
+          </button>
+          <button
+            class="p-2 active:scale-95 bg-red-400 dark:bg-opacity-70 rounded-lg"
+          >
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+  </div>
+</div>
+
+
+</div>
+
+<app-paginator-proveedores *ngIf="paginadorprov" [paginadorprov]="paginadorprov"></app-paginator-proveedores>

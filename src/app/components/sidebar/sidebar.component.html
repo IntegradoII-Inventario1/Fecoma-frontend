@@ -1,0 +1,27 @@
+<div class="d-flex flex-column flex-shrink-0 bg-gray-900 h-screen w-20" >
+  <ul class="nav nav-pills nav-flush flex-column mb-auto  text-center">
+    <li class="nav-item hover:bg-gray-600">
+      <a [routerLink]="['/']" class="nav-link py-3"><fa-icon class="text-gray-400 text-3xl font-bold" [icon]="storeIcon"></fa-icon></a>
+      <hr class="text-gray-200">
+    </li>
+    <li *ngFor="let item of menuIcon | objToArray" >
+      <a [routerLink]="item.ruta" class="nav-link py-3" aria-current="page" title={{item.title}} data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+        <fa-icon [routerLinkActive]="'text-green-500'" class="text-gray-200 font-bold" [icon]="item.icon"></fa-icon>
+        <p [routerLinkActive]="'text-green-500'" class="text-xs text-gray-200">{{item.title}}</p>
+      </a>
+      <hr class="text-gray-200">
+    </li>
+  </ul>
+  <div class="dropdown border-top">
+    <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+      <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+    </a>
+    <ul class="dropdown-menu text-small bg-gray-700  shadow" aria-labelledby="dropdownUser3" >
+      <li><a class="dropdown-item text-gray-200" href="#">Perfil</a></li>
+      <li><a class="dropdown-item text-gray-200" href="#">Ajustes</a></li>
+      <li><a class="dropdown-item text-gray-200" href="#">Chat</a></li>
+      <li><hr class="dropdown-divider"></li>
+      <li><a class="dropdown-item text-gray-200" href="#">Cerrar sesion</a></li>
+    </ul>
+  </div>
+</div>

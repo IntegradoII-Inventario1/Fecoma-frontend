@@ -1,0 +1,31 @@
+<div class="w-full max-w-full p-2">
+  <div class="text-2xl">Clientes</div>
+  <div class="w-full">
+    <h5 class="text-xl text-gray-900">Listado de clientes</h5>
+
+    
+      <div class="rounded-lg bg-gray-800">
+        <table class=" table w-full">
+          <thead class=" h-10 text-gray-200">
+            <tr>
+              <th>Id</th>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>Email</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+        <tbody class="text-gray-200">
+          <tr *ngFor="let item of clientes">
+            <td>{{item.id}}</td>
+            <td>{{item.nombre}}</td>
+            <td>{{item.apellido}}</td>
+            <td>{{item.email}}</td>
+            <td>{{item.createAt}}</td>
+          </tr>
+        </tbody>
+      </table>
+      </div>
+
+  </div>
+</div>

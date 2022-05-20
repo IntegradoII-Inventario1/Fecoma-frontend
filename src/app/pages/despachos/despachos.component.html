@@ -1,0 +1,109 @@
+<form class="flex mb-4 w-full">
+    <div class="bg-gray-900  text-gray-200 w-1/2 min-h-min max-h-min rounded-l-lg p-4 ">
+      <div class="flex flex-col">
+        <label for="producto">Producto:</label>
+        <input id="producto" placeholder="product here" class="bg-transparent p-1 border-b-2 outline-none  border-gray-200" type="text">
+      </div>
+      <br>
+      <div class="flex flex-col">
+        <label for="descripcion">Descripcion:</label>
+        <textarea disabled rows="2" id="descripcion" placeholder="descripcion here" class="resize-none bg-transparent outline-none p-1 border-b-2 border-gray-200" type="text"></textarea>
+      </div>
+      <br>
+      <div class="flex gap-x-4">
+        <div  class="w-1/2">
+          <label for="precio">Precio Unidad:</label>
+          <input disabled  id="precio" placeholder="precio here" class="resize-none w-[90%] bg-transparent outline-none p-1 border-b-2 border-gray-200" type="number"/>
+        </div>
+        <div class="w-1/2">
+          <label for="cantidad">Cantidad:</label>
+          <input id="cantidad" placeholder="cantidad here" class="resize-none w-[90%] bg-transparent outline-none p-1 border-b-2 border-gray-200" type="number"/>
+        </div>
+        
+      </div>
+    </div> 
+
+    <!--FORM RIGTH-->
+
+    <div class="bg-gray-900 text-gray-200 w-1/2 min-h-min max-h-min rounded-r-lg p-4">
+      <div class="flex flex-col">
+        <label for="proveedor">Proveedor:</label>
+        <input disabled id="proveedor" placeholder="proveedor here" class="bg-transparent p-1 border-b-2 outline-none  border-gray-200" type="text">
+      </div>
+      <br>
+      <div class="w-1/2">
+          <label for="total">Total:</label>
+          <input disabled  id="toal" placeholder="total here" class="resize-none w-[90%] bg-transparent outline-none p-1 border-b-2 border-gray-200" type="number"/>
+      </div>
+      <br>
+      <div class="">
+        <img class="w-20 rounded-md h-20 object-cover" src="https://images.pexels.com/photos/210881/pexels-photo-210881.jpeg?auto=compress&cs=tinysrgb&h=650&w=940" alt="imagen_producto">
+      </div>
+    </div>
+</form>
+
+<div class="overflow-auto w-full h-[480px] rounded-lg shadow mb-2">
+  <table class="w-full shadow-inner shadow-gray-400">
+    <thead class="bg-gray-900 text-gray-200 border-b-2 border-gray-300 ">
+      <tr>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Cod
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Descripcion
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Caracteristica
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Cantidad
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Costo
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Proveedor
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Categoria
+        </th>
+        <th class="p-3 text-sm font-semibold tracking-wide text-left">
+          Opciones
+        </th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-gray-600">
+      <tr class="bg-gray-700 ">
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          1
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          Matillo
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          Martillo mecanico
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          24 unid
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          $ 23.56
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          Bosh
+        </td>
+        <td class="p-3 text-sm text-gray-300 whitespace-nowrap">
+          Maquinaria
+        </td>
+        <td class="p-3 text-sm flex gap-x-2 text-gray-300 whitespace-nowrap">
+          <button class="p-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg">
+            <fa-icon [icon]="faPenToSquare"></fa-icon>
+          </button>
+          <button class="p-2 active:scale-95 bg-red-400 dark:bg-opacity-70 rounded-lg">
+            <fa-icon [icon]="faTrash"></fa-icon>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
