@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { tap } from 'rxjs';
+import { Subscription, tap } from 'rxjs';
+import { Producto } from 'src/app/models/producto';
 import { Representante } from 'src/app/models/representante';
 import { ModalComprasService } from 'src/app/services/modal-compras.service';
+import { ProductoService } from 'src/app/services/producto.service';
 import { RepresentantesService } from 'src/app/services/representantes.service';
 
 @Component({
@@ -14,16 +16,36 @@ import { RepresentantesService } from 'src/app/services/representantes.service';
 export class ComprasComponent implements OnInit {
   faPenToSquare = faPenToSquare;
   faTrash = faTrash;
-  representantes: Representante[] = [];
+  productos:Producto[] = []
   paginador:any;
+  suscription:Subscription
+  productoget:Producto
 
   constructor(
-    private representanteService: RepresentantesService,
+    private productoService: ProductoService,
     private activatedRoute: ActivatedRoute,
     private modalComprasService:ModalComprasService
   ) {}
 
   ngOnInit() {
+    this.suscription = this.productoService.refresh$.subscribe(()=>{
+      this.paginations()
+      this.paginador
+    })
+    this.paginations()
+  }
+
+  cargarProducto(id):void{
+    if(id){
+      this.productoService.getProducto(id).subscribe( producto  => {
+        this.productoget = producto
+        console.log(this.productoget);
+      })
+    }
+    this.abrirModal()
+  }
+
+  paginations(){
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page');
 
@@ -31,18 +53,18 @@ export class ComprasComponent implements OnInit {
         page = 0;
       }
 
-      this.representanteService
-        .getRepresentantes(page)
+      this.productoService
+        .getProductos(page)
         .pipe(
           tap((response) => {
-            (response.content as Representante[]).forEach((representantes) => {
-              console.log(representantes.nombres);
+            (response.content as Producto[]).forEach((producto) => {
+              console.log(producto.nombre);
             });
           })
         )
         .subscribe(
           (response) =>{
-            this.representantes = response.content as Representante[]
+            this.productos = response.content as Producto[]
             this.paginador = response;
           }
         );
@@ -52,6 +74,8 @@ export class ComprasComponent implements OnInit {
   abrirModal(){
     this.modalComprasService.abrirModal();
   }
+
+  
 
   
 }

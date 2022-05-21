@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, Subject, tap } from 'rxjs';
+import { catchError, map, Observable, Subject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 import { Proveedor } from '../models/proveedor';
 
@@ -12,8 +12,7 @@ export class ProveedorService {
   private _refresh$ = new Subject<void>();
   window:boolean = false;
 
-
-  urlRepresentante:string=environment.baserTest+"proveedor/"
+  urlProveedor:string=environment.baserTest+"proveedor/"
   private httpHeaders = new HttpHeaders({'Content-type':'application/json'})
 
   constructor(private http:HttpClient) { }
@@ -22,30 +21,38 @@ export class ProveedorService {
     return this._refresh$;
   }
 
-  getRepresentantes(page:number):Observable<any>{
-    return this.http.get(this.urlRepresentante+'pagina/'+page).pipe(
+  getProveedores(page:number):Observable<any>{
+    return this.http.get(this.urlProveedor+'pagina/'+page).pipe(
       tap((response:any) => {
-        (response.content as Proveedor[]).forEach(representante => {
-          console.log(representante);
+        (response.content as Proveedor[]).forEach(proveedor => {
+          console.log(proveedor);
+          this._refresh$.next()
         })
       }),
       map((response:any) => {
-        (response.content as Proveedor[]).map(representante => {
-          return representante
+        (response.content as Proveedor[]).map(proveedor => {
+          return proveedor
         });
         return response
       }),
       tap(response => {
-        (response.content as Proveedor[]).forEach(representante => {
-          console.log(representante.nombre);
+        (response.content as Proveedor[]).forEach(proveedor => {
+          console.log(proveedor.nombre);
         })
       })
     );
   }
 
-  create(representate:Proveedor):Observable<Proveedor>{
-    return this.http.post<Proveedor>(this.urlRepresentante+"crear",representate,{headers:this.httpHeaders})
+  create(proveedor:Proveedor):Observable<Proveedor>{
+    return this.http.post<Proveedor>(this.urlProveedor+"crear",proveedor,{headers:this.httpHeaders})
     .pipe(
+      map((response:any) => response.content as Proveedor),
+      catchError(e => {
+        if(e.status==400){
+          return throwError(e)
+        }        
+        return throwError(e)
+      }),
       tap(()=> {
         this._refresh$.next();
       })
@@ -53,7 +60,7 @@ export class ProveedorService {
   }
 
   lista():Observable<Proveedor[]>{
-    return this.http.get<Proveedor[]>(this.urlRepresentante+"lista");
+    return this.http.get<Proveedor[]>(this.urlProveedor+"lista");
   }
 
 

@@ -25,6 +25,7 @@ import { ModalComprasComponent } from './components/modal-compras/modal-compras.
 import { ProveedoresComponent } from './pages/proveedores/proveedores.component';
 import { RepresentantesModalComponent } from './components/representantes-modal/representantes-modal.component';
 import { PaginatorProveedoresComponent } from './components/paginator-proveedores/paginator-proveedores.component';
+import { CategoriaModalComponent } from './components/categoria-modal/categoria-modal.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { PaginatorProveedoresComponent } from './components/paginator-proveedore
     ProveedoresComponent,
     RepresentantesModalComponent,
     PaginatorProveedoresComponent,
+    CategoriaModalComponent,
   ],
   imports: [
     BrowserModule,

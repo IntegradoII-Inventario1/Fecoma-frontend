@@ -19,11 +19,12 @@ export class ProveedoresComponent implements OnInit {
   faPenToSquare = faPenToSquare;
   faTrash = faTrash;
 
+  public representanteError:string
   representantes:Representante[]
   proveedor:Proveedor = new Proveedor()
   suscription:Subscription
   suscription2:Subscription
-  errores=[]
+  public errores:string[]
   proveedores:Proveedor[]
   paginadorprov:any;
 
@@ -40,6 +41,7 @@ export class ProveedoresComponent implements OnInit {
     })
     this.suscription2 = this.proveedorService.refresh$.subscribe(()=>{
       this.paginations()
+      this.paginadorprov
     })
 
 
@@ -56,7 +58,7 @@ export class ProveedoresComponent implements OnInit {
       }
 
       this.proveedorService
-        .getRepresentantes(page)
+        .getProveedores(page)
         .pipe(
           tap((response) => {
             (response.content as Proveedor[]).forEach((proveedores) => {
@@ -67,6 +69,8 @@ export class ProveedoresComponent implements OnInit {
         .subscribe(
           (response) =>{
             this.proveedores = response.content as Proveedor[]
+            console.log(this.proveedores);
+            
             this.paginadorprov = response;
           }
         );
@@ -84,7 +88,13 @@ export class ProveedoresComponent implements OnInit {
     this.proveedorService.window = true;
   }
   cerrarWindowProveedor(){
-    this.proveedorService.window=false; 
+    this.proveedorService.window=false;
+    this.cerrarWindow()
+    this.proveedor.nombre=""
+    this.proveedor.direccion=""
+    this.proveedor.ruc=""
+    this.proveedor.representante=null
+    this.errores = []
   }
 
   create(){
@@ -96,12 +106,12 @@ export class ProveedoresComponent implements OnInit {
         this.proveedor.nombre=""
         this.proveedor.direccion=""
         this.proveedor.ruc=""
-        this.proveedor.representante=null
+        this.proveedor.representante
       },
       error => {
         this.errores = error.error.error as string[]
-        swal.fire('Error',this.errores[0],'error')
-        
+        this.representanteError=error.error.smserror as string
+        console.log(this.representanteError); 
       }
     )
   }

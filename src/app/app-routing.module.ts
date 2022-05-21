@@ -19,6 +19,7 @@ const routes: Routes = [
   {path:'admin',component:AdminComponent,
     children:[
       {path:'proveedores',component:ProveedoresComponent},
+      {path:'proveedores/page/:page',component:ComprasComponent},
     ]
   },
   {path:'',redirectTo:'dashboard',pathMatch:'full'},

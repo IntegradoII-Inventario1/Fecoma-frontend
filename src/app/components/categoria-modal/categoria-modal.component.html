@@ -1,0 +1,72 @@
+<div
+  *ngIf="categoriaService.modalcategoria"
+  class="bg-gray-400 z-40 bg-opacity-50 top-0 left-0 w-full h-screen fixed"
+>
+  <div
+    class="modal flex justify-between items-center"
+    id="staticBackdrop"
+    data-bs-backdrop="static"
+    data-bs-keyboard="false"
+    tabindex="-1"
+    aria-labelledby="staticBackdropLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg text-gray-200 bg-gray-900 p-4 rounded-md">
+      <div>
+        <div class="text-2xl">Ingresar Categoria</div>
+      </div>
+      <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+        <li *ngFor="let err of errores">
+          {{err}}
+        </li>
+      </ul>
+      <div class="modal-content p-2 bg-gray-900">
+        <div>
+          <form (ngSubmit)="create()" class="flex mb-4 w-full">
+            <div class="text-gray-200  min-h-min max-h-min p-4">
+              <div class="flex flex-col">
+                <label for="nombre">Categoria</label>
+                <input
+                  [(ngModel)]="categoria.nombre"
+                  name="nombre"
+                  placeholder="categoria here"
+                  class="bg-transparent p-1 border-b-2 outline-none border-gray-200"
+                  type="text"
+                />
+              </div>
+              <br />
+              <div class="flex flex-col">
+                <label for="descripcion">Descripcion:</label>
+                <textarea
+                  rows="2"
+                  name="descripcion"
+                  [(ngModel)]="categoria.descripcion"
+                  placeholder="descripcion here"
+                  class="resize-none bg-transparent outline-none p-1 border-b-2 border-gray-200"
+                  type="text"
+                ></textarea>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="flex gap-4 justify-end">
+          <button
+            type="button"
+            class="p-2 bg-red-500 rounded-md"
+            (click)="cerrarModalCategoria()"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            (click)="create()"
+            type="button"
+            class="p-2 bg-green-500 rounded-md"
+          >
+            Crear
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -28,6 +28,16 @@
             <section>
               <div>
                 <div class="text-2xl">Agregar nuevo Proveedor</div>
+                <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+                  <li *ngFor="let err of errores">
+                    {{err}}
+                  </li>
+                </ul>
+                <ul class="alert alert-danger" *ngIf="representanteError">
+                  <li>
+                    {{representanteError}}
+                  </li>
+                </ul>
               </div>
               <form (ngSubmit)="create()">
                 <div class="flex flex-col">
@@ -65,6 +75,7 @@
                   <section class="flex w-full justify-between gap-2">
                     <div>
                       <select
+                        required
                         name="representante"
                         class="bg-transparent outline-none p-1 border-b-2"
                         type="text"
@@ -74,19 +85,19 @@
                       <option class="bg-transparent text-gray-800" *ngFor="let representante of representantes" [ngValue]="representante">{{representante.nombres}}</option>
                     </select>
                     </div>
-                    <button
+                    <p
                       *ngIf="!modalRepresentantes.window"
                       (click)="abrirWindow()"
-                      class="bg-green-500 w-10 h-10 text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-green-400 active:scale-95"
+                      class="bg-green-500 w-10 h-10 cursor-pointer text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-green-400 active:scale-95"
                     >
                       +
-                    </button>
-                    <button *ngIf="modalRepresentantes.window"
+                  </p>
+                    <p *ngIf="modalRepresentantes.window"
                       (click)="cerrarWindow()"
-                      class="bg-red-500 w-10 h-10 text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-red-400 active:scale-95"
+                      class="bg-red-500 w-10 h-10 cursor-pointer text-gray-200 text-center p-1 rounded-lg font-bold text-md active:bg-red-400 active:scale-95"
                     >
                       -
-                    </button>
+                </p>
                   </section>
                 </div>
           
@@ -175,42 +186,32 @@ class="hidden lg:block overflow-auto w-full h-[335px] rounded-lg shadow mb-2"
 </table>
 </div>
 
-<div class="lg:hidden text-gray-400 font-bold flex gap-3 p-2 bg-gray-900 rounded-md">
+<div *ngFor="let item of proveedores"  class="lg:hidden mb-4 text-gray-400 font-bold flex gap-3 p-2 bg-gray-900 rounded-md">
 <div class="flex-1">
   <div>
-    <p>Cod: <span class="text-gray-200 font-normal">12</span></p>
+    <p>Marca <span class="text-gray-200 font-normal">{{item.nombre}}</span></p>
   </div>
   <div>
-    <p>Descripcion: <span class="text-gray-200 font-normal">Martillo</span></p>
+    <p>Ruc: <span class="text-gray-200 font-normal">{{item.ruc}}</span></p>
   </div>
   <div>
-    <p>Caracteristicas</p>
+    <p>Direccion</p>
     <p class="text-gray-200 font-normal">
-      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde,
-      adipisci!
+      {{item.direccion}}
     </p>
   </div>
   
 </div>
 <div class="flex-1 ">
   <div>
-    <p>Proveedor</p>
-    <p class="text-gray-200 font-normal">Tottus</p>
+    <p>Representante</p>
+    <p class="text-gray-200 font-normal">{{item.representante.nombres}} {{item.representante.apellidos}}</p>
   </div>
   <div>
-    <p>Categoria</p>
-    <p class="text-gray-200 font-normal">Herramientas</p>
+    <p>Contacto</p>
+    <p class="text-gray-200 font-normal">{{item.representante.telefono}}</p>
   </div>
-  <div class="flex gap-4">
-    <div>
-      <p>Cantidad</p>
-      <p class="text-gray-200 font-normal">2 uni</p>
-    </div>
-    <div>
-      <p>Costo</p>
-      <p class="text-gray-200 font-normal">$ 5.00</p>
-    </div>
-  </div>
+  
   <div class="text-right text-gray-100 mt-2">
     <button
             class="p-2 mx-2 active:scale-95 bg-yellow-400 dark:bg-opacity-70 rounded-lg"

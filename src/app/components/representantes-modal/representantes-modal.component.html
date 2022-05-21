@@ -1,6 +1,11 @@
 <div class="bg-gray-900 rounded-md p-4">
   <section>
     <h1 class="text-gray-400 text-2xl pb-6">Agregar nuevo Representante</h1>
+    <ul class="alert alert-danger" *ngIf="errores?.length > 0">
+      <li *ngFor="let err of errores">
+        {{err}}
+      </li>
+    </ul>
     <form (ngSubmit)="create()">
       <div class="flex flex-col">
         <label for="nombres">Nombre</label>

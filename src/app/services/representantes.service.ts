@@ -1,9 +1,10 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject,catchError, throwError, pipe } from 'rxjs';
 import { Representante } from '../models/representante';
 import {map,tap} from 'rxjs/operators'
 import { environment } from 'src/environments/environment.prod';
+import swal from 'sweetalert2'
 
 
 @Injectable({
@@ -49,6 +50,14 @@ export class RepresentantesService {
   create(representate:Representante):Observable<Representante>{
     return this.http.post<Representante>(this.urlRepresentante+"crear",representate,{headers:this.httpHeaders})
     .pipe(
+      map((response:any) => response.content as Representante),
+      catchError(e => {
+        console.log(e);
+        if(e.status==400){
+          return throwError(e)
+        }        
+        return throwError(e)
+      }),
       tap(()=> {
         this._refresh$.next();
       })
@@ -56,6 +65,7 @@ export class RepresentantesService {
   }
 
   lista():Observable<Representante[]>{
-    return this.http.get<Representante[]>(this.urlRepresentante+"list");
+    return this.http.get<Representante[]>(this.urlRepresentante+"list")
+
   }
 }

@@ -13,6 +13,7 @@ import swal from 'sweetalert2'
 export class RepresentantesModalComponent implements OnInit {
 
   public representante:Representante = new Representante()
+  public errores:string[]
   
   constructor(private modalRepresentante:ModalRepresentantesService,
     private representanteService:RepresentantesService) { }
@@ -30,8 +31,10 @@ export class RepresentantesModalComponent implements OnInit {
         representante.correo=""
         representante.telefono=""
       },
-      errror => {
-        swal.fire('Error',errror,'error')
+      error => {
+        this.errores = error.error.error as string[]
+        console.log(this.errores);
+        console.log("codigo de error "+error.status);
       }
     )
   }
